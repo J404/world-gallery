@@ -523,7 +523,7 @@ iframe,
 embed,
 object {
   display: block;
-  /*vertical-align: middle; */
+  vertical-align: middle;
 }
 
 /**
@@ -571,6 +571,18 @@ video {
   .container {
     max-width: 1536px;
   }
+}
+
+.nav-link-underline {
+  --tw-border-opacity: 1;
+  border-color: rgba(31, 41, 55, var(--tw-border-opacity));
+  border-width: 1px;
+  width: 100%;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 75ms;
 }
 
 .space-y-0 > :not([hidden]) ~ :not([hidden]) {
