@@ -29137,6 +29137,7 @@ video {
 
 body {
   font-family: 'Segoe UI', 'Roboto', 'Oxygen', sans-serif;
+  color: white;
 }
 
 @media (min-width: 640px) {
