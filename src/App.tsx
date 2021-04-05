@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './Header';
 import Discover from './Discover';
+import Gallery from './Gallery';
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
             <Discover></Discover>
           </Route>
 
-          <Route path='/galleries'></Route>
+          <Route path='/galleries'>
+            <Gallery></Gallery>
+          </Route>
 
           <Route path='/'></Route>
         </Switch>
