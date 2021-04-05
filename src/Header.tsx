@@ -24,8 +24,8 @@ const Header: React.FC = () => {
   }
 
   return (
-    <div className="Header">
-      <h2 className="text-6xl m-4 ml-8 tracking-wider">artsy</h2>
+    <div className="Header bg-gray-900 pb-5">
+      <h2 className="text-6xl p-4 ml-8 tracking-wider">artsy</h2>
       <ul className="flex flex-row mx-4 space-x-4">
         <li className="group" onClick={() => clickLink(0)}>
           <Link to="/">about</Link>
