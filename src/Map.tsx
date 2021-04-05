@@ -50,10 +50,10 @@ const DiscoverMap: React.FC = () => {
   });
 
   return (
-    <div className='DiscoverMap'>
+    <div className='DiscoverMap w-11/12 mx-auto border-4 border-blue-700 rounded-md'>
       <div
         id='discover-map'
-        className='w-5/6 mx-auto'
+        className='w-full mx-auto'
         style={{ height: '80vh' }}
       ></div>
     </div>
