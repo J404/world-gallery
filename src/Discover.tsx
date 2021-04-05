@@ -13,7 +13,7 @@ const Discover: React.FC = () => {
             ></div>
           </h2>
         </div>
-        <div id='description'
+        <div id='description' 
         className='text-lg mt-5 w-3/4 mx-auto space-y-6'>
           <p>
             Are you looking for local or international art from 
@@ -34,6 +34,31 @@ const Discover: React.FC = () => {
             Discover the next big thing!
           </p>
         </div>
+        <div className='w-1/3 mx-auto mt-14'>
+          <h2 className='text-6xl tracking-wide'>
+            Artists
+            <div className='nav-link-underline border-2 border-blue-700 mt-2'
+            ></div>
+          </h2>
+        </div>
+        <div
+        className='text-lg mt-5 w-3/4 mx-auto space-y-6'>
+          <p>
+            Can't find a venue for your work?
+          </p>
+          <p>
+            Tired of hours of effort with little to no consideration 
+            or appreciation?
+          </p>
+          <p>
+            Consider uploading your work to our discovery map!
+          </p>
+          <button 
+          className={'text-xl font-semibold p-4 border-2 border-blue-700 ' +
+          'rounded-md hover:bg-blue-700 transition ease-in-out'}>
+            Upload
+          </button>
+          </div>
       </div>
       <div className='col-span-3'>
         <DiscoverMap></DiscoverMap>
