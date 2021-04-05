@@ -7,8 +7,8 @@ const Header: React.FC = () => {
   let initLinks = [true, false, false];
 
   if (history.location.pathname === '/') initLinks = [true, false, false];
-  if (history.location.pathname === '/discover') initLinks = [false, true, false];
-  if (history.location.pathname === '/galleries') initLinks = [false, false, true];
+  else if (history.location.pathname === '/discover') initLinks = [false, true, false];
+  else if (history.location.pathname === '/galleries') initLinks = [false, false, true];
 
   const [buttons, setButtons] = useState(initLinks);
 
