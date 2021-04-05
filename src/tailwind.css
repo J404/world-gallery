@@ -12,3 +12,7 @@ body {
   font-family: 'Segoe UI', 'Roboto', 'Oxygen', sans-serif;
   color: white;
 }
+
+h2, button {
+  font-family: 'Source Sans Pro', sans-serif;
+}
