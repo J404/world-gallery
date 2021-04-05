@@ -6,9 +6,11 @@ const Discover: React.FC = () => {
   return (
     <div className='Discover grid grid-cols-4'>
       <div className='text-center col-span-1'>
-        <div className='group w-/13'>
-          <h2 className='text-6xl'>Discover</h2>
-          <div className='h-2 group-hover:bg-blue-700'></div>
+        <div className='group w-2/5 mx-auto'>
+          <h2 className='text-6xl tracking-wide'>
+            Discover
+            <div className='nav-link-underline border-2 group-hover:border-blue-700'></div>
+          </h2>
         </div>
       </div>
       <div className='col-span-3'>
