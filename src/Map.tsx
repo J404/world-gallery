@@ -50,11 +50,10 @@ const DiscoverMap: React.FC = () => {
   });
 
   return (
-    <div className="DiscoverMap">
-      <p>Map component!</p>
+    <div className='DiscoverMap'>
       <div
-        id="discover-map"
-        className="w-3/4 float-right mr-12"
+        id='discover-map'
+        className='w-5/6 mx-auto'
         style={{ height: '80vh' }}
       ></div>
     </div>

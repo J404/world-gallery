@@ -7,17 +7,18 @@ import Discover from './Discover';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
         <Header></Header>
+        <div id='separator' className='w-full h-12'></div>
         <Switch>
-          <Route path="/discover">
+          <Route path='/discover'>
             <Discover></Discover>
           </Route>
 
-          <Route path="/galleries"></Route>
+          <Route path='/galleries'></Route>
 
-          <Route path="/"></Route>
+          <Route path='/'></Route>
         </Switch>
       </Router>
     </div>
