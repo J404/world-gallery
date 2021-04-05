@@ -54,7 +54,7 @@ const Discover: React.FC = () => {
             Consider uploading your work to our discovery map!
           </p>
           <button 
-          className={'text-xl font-semibold p-4 border-2 border-blue-700 ' +
+          className={'text-xl font-semibold p-4 bg-gray-900 border-2 border-blue-700 ' +
           'rounded-md hover:bg-blue-700 transition ease-in-out'}>
             Upload
           </button>
