@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './Header';
-import DiscoverMap from './Map';
+import Discover from './Discover';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <Header></Header>
         <Switch>
           <Route path="/discover">
-            <DiscoverMap></DiscoverMap>
+            <Discover></Discover>
           </Route>
 
           <Route path="/galleries"></Route>
