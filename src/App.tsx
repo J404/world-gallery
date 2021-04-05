@@ -10,7 +10,8 @@ function App() {
     <div className='App'>
       <Router>
         <Header></Header>
-        <div id='separator' className='w-full h-12'></div>
+        <div id='separator' className='w-full h-4 mb-8 bg-gradient-to-b from-gray-900 to-gray-800'
+        ></div>
         <Switch>
           <Route path='/discover'>
             <Discover></Discover>
