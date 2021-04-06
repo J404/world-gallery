@@ -7,7 +7,7 @@ const Gallery: React.FC = () => {
     <div className='Gallery'>
       gallery
       <ArtPiece imageurl='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hausziege_04.jpg/1200px-Hausziege_04.jpg'
-      artist='John Doe'></ArtPiece>
+      artist='John Doe' title='Goat'></ArtPiece>
     </div>
   );
 }
