@@ -15,10 +15,12 @@ const Gallery: React.FC = () => {
 
     return (
       <div className='GalleryView grid grid-cols-4'>
-        <div className='text-center'>
-          <h2 className='text-4xl'>
+        <div className='text-center w-fit-content mx-auto'>
+          <h2 className='text-4xl w-fit-content mx-auto'>
             {artist}'s Gallery
           </h2>
+          <div className='border-2 border-yellow-300 rounded'
+          ></div>
         </div>
         <div className='flex flex-row col-span-3'>
           <ArtPiece
