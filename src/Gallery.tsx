@@ -14,7 +14,7 @@ const Gallery: React.FC = () => {
     <div className='Gallery'>
       {!!!artist ? (
         <div>
-          <p>no artist name UwU</p>
+          <p>TODO: Search function to find new artists</p>
         </div>
       ) : (
         <div>
