@@ -15,6 +15,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+// Create a new user account
 export const createUser = (
   email: string, 
   password: string) => {
