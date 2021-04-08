@@ -16,13 +16,37 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // Create a new user account
-export const createUser = (
+export const createUser = async (
   email: string, 
-  password: string) => {
+  password: string,
+  name: string,
+  description: string,
+  location: {lat: number, lon: number}) => {
   firebase.auth().createUserWithEmailAndPassword(email, password)
-  .then(userCredential => {
+  .then(async (userCredential) => {
     const user = userCredential.user;
-    console.log(user);
+
+    const data = {
+      id: user?.uid,
+      name,
+      description,
+      latitude: location.lat,
+      longitude: location.lon,
+    }
+    
+    // Send additional data to server
+    const response = await fetch('https://worldgallery-22545.web.app/api/updateUser', {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: { 'Content-Type': 'application/json', },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer', 
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+
+    console.log(result);
   })
   .catch(error => {
     console.error(`Error ${error.code}: ${error.message}`)

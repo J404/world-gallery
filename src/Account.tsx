@@ -37,7 +37,7 @@ const Account: React.FC = () => {
       return;
     }
 
-    createUser(userEmail, userPass);
+    createUser(userEmail, userPass, name, description, latlon.current);
   };
 
   return (
