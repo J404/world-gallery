@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
 
-import { createUser } from './auth';
+import { createUser, loginUser } from './auth';
 
 const Account: React.FC = () => {
   const [showForm, setForm] = useState(false);
   const [creatingAcct, setCreating] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const email = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
   const password = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
@@ -34,7 +35,14 @@ const Account: React.FC = () => {
           return;
         }
 
-        await createUser(userEmail, userPass, name, description, latlon);
+        setLoading(true);
+
+        const result = await createUser(userEmail, userPass, name, description, latlon);
+        
+        setLoading(false);
+
+        if (!result.error) setForm(false);
+        else alert('There was an error. Try again later');
       });
     } else {
       alert(
@@ -43,14 +51,25 @@ const Account: React.FC = () => {
     }
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     // We are on create screen, so only switch to login if they click
     if (creatingAcct) {
       setCreating(false);
 
     // We are already on login, so we want to actually login
     } else {
+      const userEmail = (email.current as unknown as HTMLInputElement).value;
+      const userPass = (password.current as unknown as HTMLInputElement).value;
+      const name = (username.current as unknown as HTMLInputElement).value;
+
+      setLoading(true);
       
+      const result = await loginUser(userEmail, userPass, name);
+    
+      setLoading(false);
+      
+      if (!result.error) setForm(false);
+      else alert('There was an error. Try again later');
     }
   }
 
@@ -70,58 +89,67 @@ const Account: React.FC = () => {
       </svg>
       {showForm ? (
         <div>
-        <div
-          id='triangle'
-          className='w-0 h-0 ml-56'
-          style={{
-            borderLeft: '8px solid transparent',
-            borderRight: '8px solid transparent',
-            borderBottom: '8px solid #1f2937',
-          }}
-        ></div>
-        <div
-          className={
-            'space-y-2 bg-gray-800 p-2 rounded flex flex-col px-6 ' +
-            'text-center border-2 border-gray-900'
-        }>
-          <h3 className='text-xl w-60'>
-            {creatingAcct ? 'Create Account' : 'Login'
-            }
-          </h3>
+          <div
+            id='triangle'
+            className='w-0 h-0 ml-56'
+            style={{
+              borderLeft: '8px solid transparent',
+              borderRight: '8px solid transparent',
+              borderBottom: '8px solid #1f2937',
+            }}
+          ></div>
+          <div
+            className={
+              'bg-gray-800 p-2 rounded px-6 ' +
+              'text-center border-2 border-gray-900'
+          }>
+            {!loading ? (
+              <div className='flex flex-col space-y-2'>
+                <h3 className='text-xl w-60'>
+                  {creatingAcct ? 'Create Account' : 'Login'
+                  }
+                </h3>
 
-          <input className='text-black' placeholder='Email'
-          ref={email}></input>
+                <input className='text-black' placeholder='Email'
+                ref={email}></input>
 
-          {creatingAcct ? (
-            <input className='text-black' placeholder='Username'
-            ref={username}></input>
-          ) : (
-            <span></span>
-          )}
+                <input className='text-black' placeholder='Username'
+                ref={username}></input>
 
-          <input className='text-black' placeholder='Password'
-          ref={password}></input>
+                <input className='text-black' placeholder='Password'
+                ref={password}></input>
 
-          {creatingAcct ? (
-            <textarea className='text-black'
-            placeholder='Description'
-            ref={bio}></textarea>
-          ) : (
-            <span></span>
-          )}
-          
-          <br></br>
-          
-          <div className='space-x-6'>
-            <button className='bg-gray-900 rounded px-2 py-1' 
-            onClick={() => createAccount()}>Create</button>
-            <span>|</span>
-            <button className={'border-2 border-gray-900 rounded px-2 py-1 ' + 
-            'hover:bg-gray-900 transition ease-in-out'}
-            onClick={() => handleLogin()}>Login</button>
+                {creatingAcct ? (
+                  <textarea className='text-black'
+                  placeholder='Description'
+                  ref={bio}></textarea>
+                ) : (
+                  <span></span>
+                )}
+                
+                <br></br>
+                
+                <div className='space-x-6'>
+                  <button className='bg-gray-900 rounded px-2 py-1' 
+                  onClick={() => createAccount()}>Create</button>
+                  <span>|</span>
+                  <button className={'border-2 border-gray-900 rounded px-2 py-1 ' + 
+                  'hover:bg-gray-900 transition ease-in-out'}
+                  onClick={() => handleLogin()}>Login</button>
+                </div>
+              </div>
+            ) : (
+              <div className='w-full'>
+                <div className='w-16 h-16 mx-auto my-8 rounded-full border-gray-900 animate-spin'
+                style={{
+                  border: '8px solid rgb(17, 24, 39)',
+                  borderRight: '8px solid lightgrey',
+                }}>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      </div>
       ) : (
         <span></span>
       )}

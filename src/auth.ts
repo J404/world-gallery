@@ -17,6 +17,8 @@ firebase.initializeApp(firebaseConfig);
 
 const apiRoute = 'https://us-central1-worldgallery-22545.cloudfunctions.net/api';
 
+type errRes = { error: boolean, message: string }
+
 // Create a new user account
 export const createUser = async (
   email: string,
@@ -24,7 +26,7 @@ export const createUser = async (
   name: string,
   description: string,
   location: { lat: number; lon: number }
-) => {
+): Promise<errRes> => {
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
@@ -51,12 +53,17 @@ export const createUser = async (
       );
       const result = await response.json();
 
-      if (!result.error) return result;
-      else alert('Error: try again later.');
+      if (result.error)
+        alert('Error: try again later.');
+
+      return result;
     })
     .catch((error) => {
       console.error(`Error ${error.code}: ${error.message}`);
+      return { error, message: '' };
     });
+  
+  return { error: true, message: 'ruh roh'}
 };
 
 // Sign in an existing user
@@ -64,15 +71,18 @@ export const loginUser = async (
   email: string,
   password: string,
   name: string
-) => {
+): Promise<errRes> => {
   firebase.auth().signInWithEmailAndPassword(email, password)
   .then(async (userCredential) => {
     const response = await fetch(`${apiRoute}/search/${name}`);
     const result = await response.json();
 
-    console.log(result);
+    return result;
   })
   .catch(error => {
     console.error(`Error ${error.code}: ${error.message}`);
-  })
+    return { error, message: '' };
+  });
+
+  return { error: true, message: 'ruh roh rinkies' };
 }
