@@ -36,17 +36,14 @@ export const createUser = async (
         latitude: location.lat,
         longitude: location.lon,
       };
-
+      
       // Send additional data to server
       const response = await fetch(
         'https://us-central1-worldgallery-22545.cloudfunctions.net/api/updateUser',
         {
           method: 'POST',
-          mode: 'no-cors',
-          cache: 'no-cache',
           headers: { 'Content-Type': 'application/json' },
           redirect: 'follow',
-          referrerPolicy: 'no-referrer',
           body: JSON.stringify(data),
         }
       );
