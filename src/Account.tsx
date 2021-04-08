@@ -1,44 +1,59 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { createUser } from './auth';
 
 const Account: React.FC = () => {
   const showForm = useRef(false);
 
-  type Latlon = {lat: number, lon: number};
-  const latlon = useRef<Latlon>({} as unknown as Latlon);
-  
+  const [creatingAcct, setCreating] = useState(true);
+
   const email = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
   const password = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
   const username = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
   const bio = useRef<HTMLTextAreaElement>(null as unknown as HTMLTextAreaElement);
 
-  if (showForm.current) {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(pos => {
-        const lat = pos.coords.latitude;
-        const lon = pos.coords.longitude;
-
-        latlon.current = { lat, lon };
-      });
-    } else {
-      alert('Please enable location services for this site to work as intended.');
-    }
-  }
-
-  const createAccount = () => {
-    const userEmail = (email.current as unknown as HTMLInputElement).value;
-    const userPass = (password.current as unknown as HTMLInputElement).value;
-    const name = (username.current as unknown as HTMLInputElement).value;
-    const description = (bio.current as unknown as HTMLTextAreaElement).value;
-
-    if (!latlon.current.lat) {
-      alert('You must enable location services to create an account.');
+  const createAccount = async () => {
+    if (!creatingAcct) {
+      setCreating(true);
       return;
     }
 
-    createUser(userEmail, userPass, name, description, latlon.current);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+
+        const latlon = { lat, lon }
+        
+        const userEmail = (email.current as unknown as HTMLInputElement).value;
+        const userPass = (password.current as unknown as HTMLInputElement).value;
+        const name = (username.current as unknown as HTMLInputElement).value;
+        const description = (bio.current as unknown as HTMLTextAreaElement).value;
+
+        if (!latlon.lat) {
+          alert('You must enable location services to create an account.');
+          return;
+        }
+
+        await createUser(userEmail, userPass, name, description, latlon);
+      });
+    } else {
+      alert(
+        'Please enable location services for this site to work as intended.'
+      );
+    }
   };
+
+  const handleLogin = () => {
+    // We are on create screen, so only switch to login if they click
+    if (creatingAcct) {
+      setCreating(false);
+
+    // We are already on login, so we want to actually login
+    } else {
+      
+    }
+  }
 
   return (
     <div className='Account w-fit-content max-w-24 h-24 absolute top-2 right-2 '>
@@ -69,7 +84,10 @@ const Account: React.FC = () => {
             'text-center border-2 border-gray-900'
           }
         >
-          <h3 className='text-xl w-60'>Create Account</h3>
+          <h3 className='text-xl w-60'>
+            {creatingAcct ? 'Create Account' : 'Login'
+            }
+          </h3>
 
           <input className='text-black' placeholder='Email'
           ref={email}></input>
@@ -87,9 +105,12 @@ const Account: React.FC = () => {
           <br></br>
           
           <div className='space-x-6'>
-            <button onClick={() => createAccount()}>Create</button>
+            <button className='bg-gray-900 rounded px-2 py-1' 
+            onClick={() => createAccount()}>Create</button>
             <span>|</span>
-            <button>Login</button>
+            <button className={'border-2 border-gray-900 rounded px-2 py-1 ' + 
+            'hover:bg-gray-900 transition ease-in-out'}
+            onClick={() => handleLogin()}>Login</button>
           </div>
         </div>
       </div>
