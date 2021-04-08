@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
+import Account from './Account';
+
 const Header: React.FC = () => {
   const history = useHistory();
 
@@ -102,6 +104,7 @@ const Header: React.FC = () => {
           </svg>
         </div>
       </ul>
+      <Account></Account>
     </div>
   );
 };
