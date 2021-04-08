@@ -3,8 +3,7 @@ import React, { useRef, useState } from 'react';
 import { createUser } from './auth';
 
 const Account: React.FC = () => {
-  const showForm = useRef(false);
-
+  const [showForm, setForm] = useState(false);
   const [creatingAcct, setCreating] = useState(true);
 
   const email = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
@@ -56,9 +55,10 @@ const Account: React.FC = () => {
   }
 
   return (
-    <div className='Account w-fit-content max-w-24 h-24 absolute top-2 right-2 '>
+    <div className='Account w-fit-content max-w-24 h-24 absolute top-2 right-2 z-10'>
       <svg
-        className='fill-current text-gray-400 cursor-pointer ml-52'
+        onClick={() => setForm(!showForm)}
+        className='fill-current text-gray-400 cursor-pointer ml-52 transition ease-in-out'
         xmlns='http://www.w3.org/2000/svg'
         height='48px'
         viewBox='0 0 24 24'
@@ -68,7 +68,8 @@ const Account: React.FC = () => {
         <path d='M0 0h24v24H0z' fill='none' />
         <path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z' />
       </svg>
-      <div>
+      {showForm ? (
+        <div>
         <div
           id='triangle'
           className='w-0 h-0 ml-56'
@@ -82,8 +83,7 @@ const Account: React.FC = () => {
           className={
             'space-y-2 bg-gray-800 p-2 rounded flex flex-col px-6 ' +
             'text-center border-2 border-gray-900'
-          }
-        >
+        }>
           <h3 className='text-xl w-60'>
             {creatingAcct ? 'Create Account' : 'Login'
             }
@@ -92,16 +92,24 @@ const Account: React.FC = () => {
           <input className='text-black' placeholder='Email'
           ref={email}></input>
 
-          <input className='text-black' placeholder='Username'
-          ref={username}></input>
+          {creatingAcct ? (
+            <input className='text-black' placeholder='Username'
+            ref={username}></input>
+          ) : (
+            <span></span>
+          )}
 
           <input className='text-black' placeholder='Password'
           ref={password}></input>
 
-          <textarea className='text-black'
-          placeholder='Description'
-          ref={bio}></textarea>
-
+          {creatingAcct ? (
+            <textarea className='text-black'
+            placeholder='Description'
+            ref={bio}></textarea>
+          ) : (
+            <span></span>
+          )}
+          
           <br></br>
           
           <div className='space-x-6'>
@@ -114,6 +122,9 @@ const Account: React.FC = () => {
           </div>
         </div>
       </div>
+      ) : (
+        <span></span>
+      )}
     </div>
   );
 };
