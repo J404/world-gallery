@@ -15,6 +15,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+const apiRoute = 'https://us-central1-worldgallery-22545.cloudfunctions.net/api';
+
 // Create a new user account
 export const createUser = async (
   email: string,
@@ -36,10 +38,10 @@ export const createUser = async (
         latitude: location.lat,
         longitude: location.lon,
       };
-      
+
       // Send additional data to server
       const response = await fetch(
-        'https://us-central1-worldgallery-22545.cloudfunctions.net/api/updateUser',
+        `${apiRoute}/updateUser`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -49,9 +51,28 @@ export const createUser = async (
       );
       const result = await response.json();
 
-      console.log(result);
+      if (!result.error) return result;
+      else alert('Error: try again later.');
     })
     .catch((error) => {
       console.error(`Error ${error.code}: ${error.message}`);
     });
 };
+
+// Sign in an existing user
+export const loginUser = async (
+  email: string,
+  password: string,
+  name: string
+) => {
+  firebase.auth().signInWithEmailAndPassword(email, password)
+  .then(async (userCredential) => {
+    const response = await fetch(`${apiRoute}/search/${name}`);
+    const result = await response.json();
+
+    console.log(result);
+  })
+  .catch(error => {
+    console.error(`Error ${error.code}: ${error.message}`);
+  })
+}
