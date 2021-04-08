@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { createUser, loginUser } from './auth';
+import { createUser, loginUser, UserData } from './auth';
 
 const Account: React.FC = () => {
   const [showForm, setForm] = useState(false);
@@ -36,13 +36,7 @@ const Account: React.FC = () => {
         }
 
         setLoading(true);
-
-        const result = await createUser(userEmail, userPass, name, description, latlon);
-        
-        setLoading(false);
-
-        if (!result.error) setForm(false);
-        else alert('There was an error. Try again later');
+        await createUser(userEmail, userPass, name, description, latlon, createdAccount);
       });
     } else {
       alert(
@@ -50,6 +44,12 @@ const Account: React.FC = () => {
       );
     }
   };
+
+  const createdAccount = (user: UserData) => {
+    setLoading(false);
+    console.log('signed in!');
+    console.log(user);
+  }
 
   const handleLogin = async () => {
     // We are on create screen, so only switch to login if they click
@@ -64,12 +64,9 @@ const Account: React.FC = () => {
 
       setLoading(true);
       
-      const result = await loginUser(userEmail, userPass, name);
+      await loginUser(userEmail, userPass, name);
     
       setLoading(false);
-      
-      if (!result.error) setForm(false);
-      else alert('There was an error. Try again later');
     }
   }
 

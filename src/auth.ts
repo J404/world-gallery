@@ -10,14 +10,20 @@ const apiRoute = 'https://us-central1-worldgallery-22545.cloudfunctions.net/api'
 
 type errRes = { error: boolean, message: string }
 
+export interface UserData {
+  name: string;
+  id: string;
+}
+
 // Create a new user account
 export const createUser = async (
   email: string,
   password: string,
   name: string,
   description: string,
-  location: { lat: number; lon: number }
-): Promise<errRes> => {
+  location: { lat: number; lon: number },
+  doneCallback: (user: UserData) => void
+) => {
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
@@ -43,18 +49,18 @@ export const createUser = async (
         }
       );
       const result = await response.json();
+      console.log(result);
 
       if (result.error)
-        alert('Error: try again later.');
+        alert('Error (3): try again later.');
 
-      return result;
+      // return result;
+      doneCallback({ name, id: (user as firebase.User).uid });
     })
     .catch((error) => {
-      console.error(`Error ${error.code}: ${error.message}`);
-      return { error, message: '' };
+      console.error(`Error ${error.code} | (5): ${error.message}`);
+      // return { error, message: '' };
     });
-  
-  return { error: true, message: 'ruh roh'}
 };
 
 // Sign in an existing user
@@ -62,18 +68,19 @@ export const loginUser = async (
   email: string,
   password: string,
   name: string
-): Promise<errRes> => {
+) => {
   firebase.auth().signInWithEmailAndPassword(email, password)
   .then(async (userCredential) => {
+    const user = userCredential.user;
+
+    console.log(user);
+    
     const response = await fetch(`${apiRoute}/search/${name}`);
     const result = await response.json();
 
-    return result;
+    console.log(result);
   })
   .catch(error => {
-    console.error(`Error ${error.code}: ${error.message}`);
-    return { error, message: '' };
+    console.error(`Error ${error.code} | (4): ${error.message}`);
   });
-
-  return { error: true, message: 'ruh roh rinkies' };
 }
