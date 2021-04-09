@@ -16,8 +16,8 @@ interface Props {
 const Gallery: React.FC<Props> = (props) => {
   const query = new URLSearchParams(useLocation().search);
   const name = query.get('name');
-  const uploading = !!query.get('uploading');
 
+  const [uploading, setUploading] = useState(!!query.get('uploading'));
   const [loading, setLoading] = useState(false);
   const [artist, setArtist] = useState({} as unknown as UserData);
 
@@ -75,7 +75,12 @@ const Gallery: React.FC<Props> = (props) => {
             </div>
           </div>
           {(uploading && props.user.id /* props.user.id === artist.id && */) ? (
-            <UploadPiece uid={props.user.id}></UploadPiece>
+            <div>
+              <div className='z-20 bg-black opacity-20 w-full h-full absolute top-0 left-0'
+              onClick={() => setUploading(false)}>
+              </div>
+              <UploadPiece uid={props.user.id}></UploadPiece>
+            </div>
           ) : (
             <span></span>
           )}

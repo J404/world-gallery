@@ -75,7 +75,7 @@ const UploadPiece: React.FC<Props> = (props) => {
     <div
       className={
         'UploadPiece absolute w-1/3 h-1/3 top-1/3 left-1/3 ' +
-        'bg-gray-900 rounded-lg p-6 space-y-2 z-20 flex flex-col'
+        'bg-gray-900 rounded-lg p-6 space-y-2 z-30 flex flex-col'
       }
     >
       <h2 className='text-2xl'>Upload a New Piece</h2>
