@@ -6,13 +6,12 @@ import 'firebase/auth';
 // Initialize firebase w/ config
 initFirebase();
 
-const apiRoute = 'https://us-central1-worldgallery-22545.cloudfunctions.net/api';
-
-type errRes = { error: boolean, message: string }
+export const apiRoute = 'https://us-central1-worldgallery-22545.cloudfunctions.net/api';
 
 export interface UserData {
   name: string;
   id: string;
+  description: string;
   latitude: number;
   longitude: number;
 }
@@ -61,6 +60,7 @@ export const createUser = async (
       doneCallback({ 
         name, 
         id: (user as firebase.User).uid,
+        description,
         latitude: location.lat,
         longitude: location.lon,
        });
@@ -94,6 +94,7 @@ export const loginUser = async (
     doneCallback({
       name,
       id: (user as firebase.User).uid,
+      description: result.data[0].description,
       latitude: result.data[0].latitude,
       longitude: result.data[0].longitude,
     });

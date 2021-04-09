@@ -137,7 +137,7 @@ const Account: React.FC<Props> = (props) => {
                 <br></br>
                 
                 <div className='space-x-6'>
-                  <button className='bg-gray-900 rounded px-2 py-1' 
+                  <button className='bg-gray-900 border-gray-900 rounded px-2 py-1' 
                   onClick={() => createAccount()}>Create</button>
                   <span>|</span>
                   <button className={'border-2 border-gray-900 rounded px-2 py-1 ' + 
