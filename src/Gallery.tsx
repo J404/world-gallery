@@ -61,11 +61,21 @@ const Gallery: React.FC<Props> = (props) => {
                   {name}'s Gallery
                 </h2>
                 <div className='border-2 border-yellow-300 rounded'></div>
+                {loading ? (
+                <div className='w-16 h-16 mx-auto my-8 rounded-full border-gray-900 animate-spin'
+                  style={{
+                    border: '8px solid rgb(17, 24, 39)',
+                    borderRight: '8px solid rgb(252, 211, 77)',
+                  }}>
+                </div>
+                ) : (
+                  <></>
+                )}
               </div>
               <div>
                 <p className='text-lg my-4'>{artist.description}</p>
               </div>
-              {props.user.id /* && props.user.id === artist.id */ ? (
+              {props.user.id && !loading /* && props.user.id === artist.id */ ? (
                 <div>
                   <p>Want to add a new piece to your collection?</p>
                   <button className='my-2 p-1 border-yellow-300 hover:bg-yellow-300'
