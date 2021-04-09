@@ -612,6 +612,16 @@ video {
   transition-duration: 200ms;
 }
 
+input, textarea {
+  border-radius: 0.25rem;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .space-y-0 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));

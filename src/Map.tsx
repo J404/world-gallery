@@ -53,7 +53,7 @@ const DiscoverMap: React.FC = () => {
     <div className='DiscoverMap w-11/12 mx-auto border-4 border-blue-700 rounded-md'>
       <div
         id='discover-map'
-        className='w-full mx-auto'
+        className='w-full mx-auto z-0'
         style={{ height: '80vh' }}
       ></div>
     </div>

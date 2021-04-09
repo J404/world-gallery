@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-const Header: React.FC = () => {
+import { UserData } from './auth';
+
+import Account from './Account';
+
+interface Props {
+  handleLogin: (user: UserData) => void;
+  user: UserData;
+}
+
+const Header: React.FC<Props> = (props) => {
   const history = useHistory();
 
   let initLinks = [true, false, false];
@@ -102,6 +111,8 @@ const Header: React.FC = () => {
           </svg>
         </div>
       </ul>
+      <Account user={props.user}
+      handleLogin={props.handleLogin}></Account>
     </div>
   );
 };

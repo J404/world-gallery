@@ -11,6 +11,10 @@
     @apply p-3 border-t-2 border-yellow-300 border-opacity-0 hover:bg-gray-900 hover:border-opacity-100;
     @apply transition duration-200 ease-in-out cursor-pointer;
   }
+  
+  input, textarea {
+    @apply outline-none rounded px-2 py-1;
+  }
 }
 
 body {
