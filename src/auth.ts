@@ -8,8 +8,6 @@ initFirebase();
 
 export const apiRoute = 'https://us-central1-worldgallery-22545.cloudfunctions.net/api';
 
-type errRes = { error: boolean, message: string }
-
 export interface UserData {
   name: string;
   id: string;
