@@ -7,6 +7,7 @@ import Account from './Account';
 
 interface Props {
   handleLogin: (user: UserData) => void;
+  user: UserData;
 }
 
 const Header: React.FC<Props> = (props) => {
@@ -110,7 +111,8 @@ const Header: React.FC<Props> = (props) => {
           </svg>
         </div>
       </ul>
-      <Account handleLogin={props.handleLogin}></Account>
+      <Account user={props.user}
+      handleLogin={props.handleLogin}></Account>
     </div>
   );
 };

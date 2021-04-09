@@ -18,7 +18,8 @@ function App() {
   return (
     <div className='App'>
       <Router>
-        <Header handleLogin={signIn}></Header>
+        <Header user={user}
+        handleLogin={signIn}></Header>
         <div
           id='separator'
           className='w-full h-4 mb-8 bg-gradient-to-b from-gray-900 to-gray-800'
