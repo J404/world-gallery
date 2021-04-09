@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import {
+  Link,
   useLocation,
 } from 'react-router-dom';
 
@@ -64,6 +65,18 @@ const Gallery: React.FC<Props> = (props) => {
               <div>
                 <p className='text-lg my-4'>{artist.description}</p>
               </div>
+              {props.user.id /* && props.user.id === artist.id */ ? (
+                <div>
+                  <p>Want to add a new piece to your collection?</p>
+                  <button className='my-2 p-1 border-yellow-300 hover:bg-yellow-300'
+                  onClick={() => setUploading(true)}>
+                    Upload
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
+              
             </div>
 
             <div className='flex flex-row col-span-3'>
@@ -82,7 +95,7 @@ const Gallery: React.FC<Props> = (props) => {
               <UploadPiece uid={props.user.id}></UploadPiece>
             </div>
           ) : (
-            <span></span>
+            <></>
           )}
         </div>
       )}
