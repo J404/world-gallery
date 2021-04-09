@@ -2,9 +2,15 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { UserData } from './auth';
+
 import DiscoverMap from './Map';
 
-const Discover: React.FC = () => {
+interface Props {
+  user: UserData;
+}
+
+const Discover: React.FC<Props> = props => {
   return (
     <div className='Discover grid grid-cols-4'>
       <div className='text-center col-span-1'>
@@ -57,8 +63,9 @@ const Discover: React.FC = () => {
           </p>
           <button 
           className='border-blue-700 hover:bg-blue-700 font-semibold'>
-            <Link to='/galleries?name=catest1&uploading=1'>Upload</Link>
+            <Link to={`/galleries?name=${props.user.name}&uploading=1`}>Upload</Link>
           </button>
+          <p>(Note: you must be signed in to upload a new piece.)</p>
           </div>
       </div>
       <div className='col-span-3'>

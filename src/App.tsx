@@ -26,7 +26,7 @@ function App() {
         ></div>
         <Switch>
           <Route path='/discover'>
-            <Discover></Discover>
+            <Discover user={user}></Discover>
           </Route>
 
           <Route path='/galleries'>
