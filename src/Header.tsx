@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import { UserData } from './auth';
 
@@ -11,25 +11,27 @@ interface Props {
 }
 
 const Header: React.FC<Props> = (props) => {
-  const history = useHistory();
+  const location = useLocation();
 
   let initLinks = [true, false, false];
+  const [links, setLinkState] = useState(initLinks);
 
-  if (history.location.pathname.startsWith('/galleries')) initLinks = [false, false, true];
-  else if (history.location.pathname.startsWith('/discover')) initLinks = [false, true, false];
-  else if (history.location.pathname === '/') initLinks = [true, false, false];
+  useEffect(() => {
+    if (location.pathname.startsWith('/galleries')) setLinkState([false, false, true]);
+    else if (location.pathname.startsWith('/discover')) setLinkState([false, true, false]);
+    else if (location.pathname === '/') setLinkState([true, false, false]);
+  }, [location])
 
-  const [buttons, setButtons] = useState(initLinks);
 
   function clickLink(id: number) {
-    let newButtons = [...buttons];
+    let newLinks = [...links];
 
     for (let i = 0; i < 3; i++) {
-      if (i === id) newButtons[i] = true;
-      else newButtons[i] = false;
+      if (i === id) newLinks[i] = true;
+      else newLinks[i] = false;
     }
 
-    setButtons(newButtons);
+    setLinkState(newLinks);
   }
 
   return (
@@ -59,7 +61,7 @@ const Header: React.FC<Props> = (props) => {
           <Link to="/">about</Link>
           <div
             className={
-              'nav-link-underline ' + (buttons[0]
+              'nav-link-underline ' + (links[0]
                 ? 'border-red-600'
                 : 'group-hover:border-red-600')
             }
@@ -72,7 +74,7 @@ const Header: React.FC<Props> = (props) => {
           <Link to="/discover">discover</Link>
           <div
             className={
-              'nav-link-underline ' + (buttons[1]
+              'nav-link-underline ' + (links[1]
                 ? 'border-blue-700'
                 : 'group-hover:border-blue-700')
             }
@@ -85,7 +87,7 @@ const Header: React.FC<Props> = (props) => {
           <Link to="/galleries">galleries</Link>
           <div
             className={
-              'nav-link-underline ' + (buttons[2]
+              'nav-link-underline ' + (links[2]
                 ? 'border-yellow-300'
                 : 'group-hover:border-yellow-300')
             }
