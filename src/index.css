@@ -629,8 +629,14 @@ button {
   border-width: 2px;
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+button:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+button {
   padding: 0.5rem;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

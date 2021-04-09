@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 
 import firebase from 'firebase/app';
-
 import 'firebase/storage';
+
+import { apiRoute } from './auth';
 
 interface Props {
   uid: string;
@@ -30,9 +31,44 @@ const UploadPiece: React.FC<Props> = (props) => {
     const storageRef = firebase.storage().ref('galleries');
     const imageRef = storageRef.child(`${props.uid}/${file.name}`);
     
-    imageRef.put(file).then(snapshot => {
-      console.log('uploaded!');
-    });
+    const uploadTask = imageRef.put(file);
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      () => {
+        // Progress event
+      },
+      error => {
+        // Error event
+        alert('Error (8): Please try again later');
+        console.error(error);
+      },
+      () => {
+        // Done event
+        console.log('uploaded!');
+        uploadTask.snapshot.ref.getDownloadURL().then(async downloadURL => {
+          // Send additional data to endpoint
+          const data = {
+            description: artDescrip,
+            title: artTitle,
+            imageURL: downloadURL,
+            fileName: file.name,
+            uid: props.uid,
+          };
+
+          const response = await fetch(
+            `${apiRoute}/addPiece`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              redirect: 'follow',
+              body: JSON.stringify(data),
+            }
+          );
+          const result = await response.json();
+
+          console.log(result);
+        });
+      });
   };
 
   return (
