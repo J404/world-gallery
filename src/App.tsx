@@ -30,7 +30,7 @@ function App() {
           </Route>
 
           <Route path='/galleries'>
-            <Gallery></Gallery>
+            <Gallery user={user}></Gallery>
           </Route>
 
           <Route path='/'></Route>

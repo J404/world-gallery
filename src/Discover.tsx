@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import DiscoverMap from './Map';
 
 const Discover: React.FC = () => {
@@ -54,9 +56,8 @@ const Discover: React.FC = () => {
             Consider uploading your work to our discovery map!
           </p>
           <button 
-          className={'text-xl font-semibold p-4 bg-gray-900 border-2 border-blue-700 ' +
-          'rounded-md hover:bg-blue-700 transition ease-in-out'}>
-            Upload
+          className='border-blue-700 hover:bg-blue-700 font-semibold'>
+            <Link to='/galleries?name=catest1&uploading=1'>Upload</Link>
           </button>
           </div>
       </div>
