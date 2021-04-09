@@ -13,6 +13,8 @@ type errRes = { error: boolean, message: string }
 export interface UserData {
   name: string;
   id: string;
+  latitude: number;
+  longitude: number;
 }
 
 // Create a new user account
@@ -51,15 +53,20 @@ export const createUser = async (
       const result = await response.json();
       console.log(result);
 
-      if (result.error)
+      if (result.error) {
         alert('Error (3): try again later.');
-
-      // return result;
-      doneCallback({ name, id: (user as firebase.User).uid });
+        return;
+      }
+      
+      doneCallback({ 
+        name, 
+        id: (user as firebase.User).uid,
+        latitude: location.lat,
+        longitude: location.lon,
+       });
     })
     .catch((error) => {
       console.error(`Error ${error.code} | (5): ${error.message}`);
-      // return { error, message: '' };
     });
 };
 
@@ -67,7 +74,8 @@ export const createUser = async (
 export const loginUser = async (
   email: string,
   password: string,
-  name: string
+  name: string,
+  doneCallback: (user: UserData) => void
 ) => {
   firebase.auth().signInWithEmailAndPassword(email, password)
   .then(async (userCredential) => {
@@ -75,10 +83,20 @@ export const loginUser = async (
 
     console.log(user);
     
-    const response = await fetch(`${apiRoute}/search/${name}`);
+    const response = await fetch(`${apiRoute}/search?name=${name}`);
     const result = await response.json();
-
     console.log(result);
+
+    if (result.error) {
+      alert('Error (6): Try again later');
+    }
+
+    doneCallback({
+      name,
+      id: (user as firebase.User).uid,
+      latitude: result.data[0].latitude,
+      longitude: result.data[0].longitude,
+    });
   })
   .catch(error => {
     console.error(`Error ${error.code} | (4): ${error.message}`);

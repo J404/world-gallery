@@ -2,7 +2,11 @@ import React, { useRef, useState } from 'react';
 
 import { createUser, loginUser, UserData } from './auth';
 
-const Account: React.FC = () => {
+interface Props {
+  handleLogin: (user: UserData) => void;
+}
+
+const Account: React.FC<Props> = (props) => {
   const [showForm, setForm] = useState(false);
   const [creatingAcct, setCreating] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -36,7 +40,7 @@ const Account: React.FC = () => {
         }
 
         setLoading(true);
-        await createUser(userEmail, userPass, name, description, latlon, createdAccount);
+        await createUser(userEmail, userPass, name, description, latlon, userSignIn);
       });
     } else {
       alert(
@@ -45,10 +49,12 @@ const Account: React.FC = () => {
     }
   };
 
-  const createdAccount = (user: UserData) => {
+  const userSignIn = (user: UserData) => {
     setLoading(false);
+    setForm(false);
+    
     console.log('signed in!');
-    console.log(user);
+    props.handleLogin(user);
   }
 
   const handleLogin = async () => {
@@ -64,9 +70,7 @@ const Account: React.FC = () => {
 
       setLoading(true);
       
-      await loginUser(userEmail, userPass, name);
-    
-      setLoading(false);
+      await loginUser(userEmail, userPass, name, userSignIn);
     }
   }
 
