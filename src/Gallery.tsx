@@ -6,6 +6,7 @@ import {
 
 import { apiRoute, UserData } from './auth';
 
+import GallerySearch from './GallerySearch';
 import ArtPiece from './ArtPiece';
 import UploadPiece from './UploadPiece';
 
@@ -50,7 +51,7 @@ const Gallery: React.FC<Props> = (props) => {
     <div className='Gallery'>
       {!!!name ? (
         <div>
-          <p>TODO: Search function to find new artists</p>
+          <GallerySearch></GallerySearch>
         </div>
       ) : (
         <div>
