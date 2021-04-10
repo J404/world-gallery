@@ -2,7 +2,11 @@ import React, { useEffect, useRef } from 'react';
 
 import * as L from 'leaflet';
 
-const DiscoverMap: React.FC = () => {
+interface Props {
+  startCoords: [number, number];
+}
+
+const DiscoverMap: React.FC<Props> = props => {
   let discovermap = useRef<L.Map>(({} as unknown) as L.Map);
   const didMount = useRef(false);
 
@@ -19,8 +23,13 @@ const DiscoverMap: React.FC = () => {
     // Only recreate if the component isn't mounted - not on reload
     if (!didMount.current) {
       didMount.current = true;
+      
+      // default coordinates
+      let coords: [number, number] = [488.8566, 2.3522];
 
-      discovermap.current = L.map('discover-map').setView([51.505, -0.09], 13);
+      if (props.startCoords[0] && props.startCoords[1]) coords = props.startCoords;
+
+      discovermap.current = L.map('discover-map').setView(coords, 13);
 
       L.tileLayer(
         `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`,

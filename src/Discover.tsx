@@ -69,7 +69,10 @@ const Discover: React.FC<Props> = props => {
           </div>
       </div>
       <div className='col-span-3'>
-        <DiscoverMap></DiscoverMap>
+        <DiscoverMap startCoords={[
+          props.user.latitude,
+          props.user.longitude,
+        ]}></DiscoverMap>
       </div>
     </div>
   );
