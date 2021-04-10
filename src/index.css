@@ -588,21 +588,10 @@ video {
 
 .pic-control-svg:hover {
   --tw-bg-opacity: 1;
-  background-color: rgba(17, 24, 39, var(--tw-bg-opacity));
+  background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
 }
 
 .pic-control-svg {
-  --tw-border-opacity: 1;
-  border-color: rgba(252, 211, 77, var(--tw-border-opacity));
-  --tw-border-opacity: 0;
-}
-
-.pic-control-svg:hover {
-  --tw-border-opacity: 1;
-}
-
-.pic-control-svg {
-  border-top-width: 2px;
   padding: 0.75rem;
   cursor: pointer;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;

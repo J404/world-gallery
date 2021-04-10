@@ -83,7 +83,7 @@ const Gallery: React.FC<Props> = (props) => {
       ) : (
         <div>
           <div className='GalleryView grid grid-cols-4'>
-            <div className='text-center'>
+            <div className='text-center col-span-1'>
               <div className='w-fit-content mx-auto'>
                 <h2 className='text-4xl w-fit-content mx-auto'>
                   {name}'s Gallery
@@ -117,7 +117,7 @@ const Gallery: React.FC<Props> = (props) => {
               
             </div>
 
-            <div className='flex flex-row col-span-3'>
+            <div className='col-span-3 grid grid-cols-4 w-auto'>
               {
                 pieces.map((piece, i) =>
                   <ArtPiece
