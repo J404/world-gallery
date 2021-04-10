@@ -1,16 +1,18 @@
 import React from 'react';
 
 interface Props {
-  imageurl: string;
-  artist: string;
+  imageURL: string;
   title: string;
+  likes: number;
+  fileName: string;
+  description: string;
 }
 
 const ArtPiece: React.FC<Props> = props => {
   return (
     <div className='ArtPiece w-96 h-96 bg-gray-900 border-2 border-yellow-300 rounded'>
-      <img src={props.imageurl} 
-      alt={`${props.artist} painting`}></img>
+      <img src={props.imageURL} 
+      alt={`${props.fileName} painting`}></img>
       <div className={'relative bottom-0 h-12 flex flex-row ' +
       'border-2 border-t-0 border-yellow-300 rounded flex flex-row'}>
         <div className='text-yellow-300 font-semibold my-auto mx-4'

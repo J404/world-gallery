@@ -124,7 +124,7 @@ const Account: React.FC<Props> = props => {
           }>
             {!loading ? (
               <>
-                {!props.user.id ? (
+                {!props.user.uid ? (
                 <div className='flex flex-col space-y-2'>
                   <h3 className='text-xl w-60'>
                     {creatingAcct ? 'Create Account' : 'Login'
