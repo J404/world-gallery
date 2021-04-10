@@ -10,7 +10,7 @@ interface Props {
 
 const ArtPiece: React.FC<Props> = props => {
   return (
-    <div className='ArtPiece mx-4'>
+    <div className='ArtPiece mx-4 mb-8'>
       <div className='bg-gray-900 w-fit-content border-2 border-yellow-300 rounded'>
         <img src={props.imageURL} 
         alt={`${props.fileName}`}

@@ -29208,6 +29208,20 @@ h2, button {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(17, 24, 39, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(red, indigo, orange, yellow, green);
+  height: 30px;
+  border-radius: 5px;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
