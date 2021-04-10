@@ -102,7 +102,8 @@ const Gallery: React.FC<Props> = (props) => {
               <div className='z-20 bg-black opacity-20 w-full h-full absolute top-0 left-0'
               onClick={() => setUploading(false)}>
               </div>
-              <UploadPiece uid={props.user.id}></UploadPiece>
+              <UploadPiece uid={props.user.id}
+              closeDialogue={() => setUploading(false)}></UploadPiece>
             </div>
           ) : (
             <></>
