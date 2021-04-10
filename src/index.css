@@ -25203,6 +25203,10 @@ button {
   width: fit-content;
 }
 
+.w-artist-result {
+  width: 50rem;
+}
+
 .z-0 {
   z-index: 0;
 }
@@ -53793,6 +53797,10 @@ h2, button {
     width: fit-content;
   }
 
+  .sm\:w-artist-result {
+    width: 50rem;
+  }
+
   .sm\:z-0 {
     z-index: 0;
   }
@@ -82342,6 +82350,10 @@ h2, button {
   .md\:w-fit-content {
     width: -moz-fit-content;
     width: fit-content;
+  }
+
+  .md\:w-artist-result {
+    width: 50rem;
   }
 
   .md\:z-0 {
@@ -110895,6 +110907,10 @@ h2, button {
     width: fit-content;
   }
 
+  .lg\:w-artist-result {
+    width: 50rem;
+  }
+
   .lg\:z-0 {
     z-index: 0;
   }
@@ -139446,6 +139462,10 @@ h2, button {
     width: fit-content;
   }
 
+  .xl\:w-artist-result {
+    width: 50rem;
+  }
+
   .xl\:z-0 {
     z-index: 0;
   }
@@ -167995,6 +168015,10 @@ h2, button {
   .\32xl\:w-fit-content {
     width: -moz-fit-content;
     width: fit-content;
+  }
+
+  .\32xl\:w-artist-result {
+    width: 50rem;
   }
 
   .\32xl\:z-0 {

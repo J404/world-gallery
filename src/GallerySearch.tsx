@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 
 import { apiRoute, UserData } from './auth';
 
+import ArtistResult from './ArtistResult';
+
 const GallerySearch: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<UserData[]>([]);
@@ -19,6 +21,7 @@ const GallerySearch: React.FC = () => {
 
     if (result.error) {
       alert('Error (11): Try again later');
+      setLoading(false);
       return;
     }
 
@@ -53,10 +56,12 @@ const GallerySearch: React.FC = () => {
           <></>
         )}
       </div>
+      <br></br>
       <div>
         {
           results.map((artist, i) => {
-            return <p key={i}>{ artist.name }</p>
+            return <ArtistResult key={i}
+            artist={artist}>{ artist.name }</ArtistResult>
           })
         }
       </div>
