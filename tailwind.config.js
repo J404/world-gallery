@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       width: {
         'fit-content': 'fit-content',
+        'artist-result': '50rem',
       }
     }
   }

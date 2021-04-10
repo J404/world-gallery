@@ -8,7 +8,7 @@
   }
   
   .pic-control-svg {
-    @apply p-3 border-t-2 border-yellow-300 border-opacity-0 hover:bg-gray-900 hover:border-opacity-100;
+    @apply p-3 hover:bg-gray-800;
     @apply transition duration-200 ease-in-out cursor-pointer;
   }
   
@@ -17,7 +17,7 @@
   }
   
   button {
-   @apply text-xl p-2 border-2 
+   @apply text-xl px-2 py-1 border-2 
           rounded-md transition ease-in-out focus:outline-none;
   }
 }

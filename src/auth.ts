@@ -10,7 +10,7 @@ export const apiRoute = 'https://us-central1-worldgallery-22545.cloudfunctions.n
 
 export interface UserData {
   name: string;
-  id: string;
+  uid: string;
   description: string;
   latitude: number;
   longitude: number;
@@ -40,7 +40,7 @@ export const checkSignedIn = (callback: (user: UserData) => void) => {
 
       callback({
         name: name as unknown as string,
-        id: user.uid,
+        uid: user.uid,
         description: result.data[0].description,
         latitude: result.data[0].latitude,
         longitude: result.data[0].longitude,
@@ -109,7 +109,7 @@ export const createUser = async (
       
       doneCallback({ 
         name, 
-        id: (user as firebase.User).uid,
+        uid: (user as firebase.User).uid,
         description,
         latitude: location.lat,
         longitude: location.lon,
@@ -146,7 +146,7 @@ export const loginUser = async (
 
     doneCallback({
       name,
-      id: (user as firebase.User).uid,
+      uid: (user as firebase.User).uid,
       description: result.data[0].description,
       latitude: result.data[0].latitude,
       longitude: result.data[0].longitude,

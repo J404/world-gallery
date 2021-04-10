@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { createUser, loginUser, signOutUser, UserData } from './auth';
 
@@ -124,7 +124,7 @@ const Account: React.FC<Props> = props => {
           }>
             {!loading ? (
               <>
-                {!props.user.id ? (
+                {!props.user.uid ? (
                 <div className='flex flex-col space-y-2'>
                   <h3 className='text-xl w-60'>
                     {creatingAcct ? 'Create Account' : 'Login'
@@ -161,6 +161,11 @@ const Account: React.FC<Props> = props => {
                 </div>
                 ) : (
                   <div>
+                    <Link className='text-yellow-300'
+                    to={`/galleries?name=${props.user.name}`}>
+                      (go to your gallery)
+                    </Link>
+                    <br></br>
                     <button className='bg-gray-900 border-gray-900 rounded px-2 py-1 my-5'
                     onClick={() => handleLogout()}>
                       Sign out
