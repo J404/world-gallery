@@ -23,7 +23,8 @@ interface ArtData {
 }
 
 const Gallery: React.FC<Props> = (props) => {
-  const query = new URLSearchParams(useLocation().search);
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
   const name = query.get('name');
 
   const [uploading, setUploading] = useState(!!query.get('uploading'));
@@ -64,15 +65,15 @@ const Gallery: React.FC<Props> = (props) => {
       console.log(artistData);
       setArtist(artistData);
 
-      loadPieces(artistData);
+      await loadPieces(artistData);
+      setLoading(false);
     }
 
     if (name) {
        setLoading(true);
        loadUserData();
-       setLoading(false);
     }
-  }, []);
+  }, [location]);
 
   return (
     <div className='Gallery'>
