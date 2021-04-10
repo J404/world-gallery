@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Link, useHistory } from 'react-router-dom';
 
@@ -107,7 +107,9 @@ const Account: React.FC<Props> = props => {
         </div>
       </div>
       {showForm ? (
-        <div>
+        <div className='z-20 focus:outline-none'
+        tabIndex={0}
+        onBlur={() => setForm(false)}>
           <div
             id='triangle'
             className='w-0 h-0 mr-10 ml-auto'
