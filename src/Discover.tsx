@@ -14,7 +14,7 @@ const Discover: React.FC<Props> = props => {
   return (
     <div className='Discover grid grid-cols-4'>
       <div className='text-center col-span-1'>
-        <div className='group w-2/5 mx-auto'>
+        <div className='w-fit-content mx-auto'>
           <h2 className='text-6xl tracking-wide'>
             Discover
             <div className='nav-link-underline border-2 border-blue-700 mt-2'
@@ -42,12 +42,12 @@ const Discover: React.FC<Props> = props => {
             Discover the next big thing!
           </p>
         </div>
-        <div className='w-1/3 mx-auto mt-14'>
+        <div className='w-fit-content mx-auto mt-14'>
           <h2 className='text-6xl tracking-wide'>
             Artists
-            <div className='nav-link-underline border-2 border-blue-700 mt-2'
-            ></div>
           </h2>
+          <div className='nav-link-underline border-2 border-blue-700 mt-2'>
+          </div>
         </div>
         <div
         className='text-lg mt-5 w-3/4 mx-auto space-y-6'>
