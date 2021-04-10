@@ -16,6 +16,51 @@ export interface UserData {
   longitude: number;
 }
 
+// Check if a user is already signed in
+export const checkSignedIn = (callback: (user: UserData) => void) => {
+  firebase.auth().onAuthStateChanged(async user => {
+    if (user) {
+      console.log(user);
+      const name = localStorage.getItem('name');
+      const password = localStorage.getItem('password');
+
+      try {
+        const response = await fetch(`${apiRoute}/search?name=${name}`);
+        const result = await response.json();
+
+        if (result.error) {
+          alert('Error (9): Try again later');
+          return;
+        }
+
+      callback({
+        name: name as unknown as string,
+        id: user.uid,
+        description: result.data[0].description,
+        latitude: result.data[0].latitude,
+        longitude: result.data[0].longitude,
+      });
+      
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.log('no user signed in');
+      clearCredentials();
+    }
+  });
+  }
+
+const storeCredentials = (name: string, password: string) => {
+  localStorage.setItem('name', name);
+  localStorage.setItem('password', password);
+}
+
+const clearCredentials = () => {
+  localStorage.setItem('name', '');
+  localStorage.setItem('password', '');
+}
+
 // Create a new user account
 export const createUser = async (
   email: string,
@@ -64,6 +109,8 @@ export const createUser = async (
         latitude: location.lat,
         longitude: location.lon,
        });
+
+       storeCredentials(name, password);
     })
     .catch((error) => {
       console.error(`Error ${error.code} | (5): ${error.message}`);
@@ -89,6 +136,7 @@ export const loginUser = async (
 
     if (result.error) {
       alert('Error (6): Try again later');
+      return;
     }
 
     doneCallback({
@@ -98,6 +146,10 @@ export const loginUser = async (
       latitude: result.data[0].latitude,
       longitude: result.data[0].longitude,
     });
+
+    console.log('signed in!');
+
+    storeCredentials(name, password);
   })
   .catch(error => {
     console.error(`Error ${error.code} | (4): ${error.message}`);

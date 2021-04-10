@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { UserData } from './auth';
+import { UserData, checkSignedIn } from './auth';
 
 import Header from './Header';
 import Discover from './Discover';
@@ -14,6 +14,8 @@ function App() {
   const signIn = (userData: UserData) => {
     setUser(userData);
   };
+
+  useEffect(() => checkSignedIn(signIn), []);
 
   return (
     <div className='App'>
