@@ -65,8 +65,8 @@ const DiscoverMap: React.FC<Props> = props => {
         }
       ).addTo(discovermap.current);
 
-      // Go to broswer's location if they allow
-      if (navigator.geolocation) {
+      // Go to broswer's location if they allow AND if they didn't give us coords in their account
+      if (navigator.geolocation && !props.startCoords[0]) {
         navigator.geolocation.getCurrentPosition((pos) => {
           const lat = pos.coords.latitude;
           const lon = pos.coords.longitude;
@@ -79,7 +79,7 @@ const DiscoverMap: React.FC<Props> = props => {
       // Search for all users and add markers for them
       setAllMarkers();
     }
-  });
+  }, []);
 
   return (
     <div className='DiscoverMap w-11/12 mx-auto border-4 border-blue-700 rounded-md'>
