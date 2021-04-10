@@ -29,6 +29,7 @@ const Gallery: React.FC<Props> = (props) => {
 
       console.log(props.user);
       console.log(artist);
+      
       if (result.error) {
         alert('Error (8): Try again later.');
         return;

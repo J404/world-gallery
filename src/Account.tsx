@@ -1,13 +1,17 @@
 import React, { useRef, useState } from 'react';
 
-import { createUser, loginUser, UserData } from './auth';
+import { useHistory } from 'react-router-dom';
+
+import { createUser, loginUser, signOutUser, UserData } from './auth';
 
 interface Props {
   handleLogin: (user: UserData) => void;
   user: UserData;
 }
 
-const Account: React.FC<Props> = (props) => {
+const Account: React.FC<Props> = props => {
+  const history = useHistory();
+
   const [showForm, setForm] = useState(false);
   const [creatingAcct, setCreating] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -49,15 +53,7 @@ const Account: React.FC<Props> = (props) => {
       );
     }
   };
-
-  const userSignIn = (user: UserData) => {
-    setLoading(false);
-    setForm(false);
-    
-    console.log('signed in!');
-    props.handleLogin(user);
-  }
-
+  
   const handleLogin = async () => {
     // We are on create screen, so only switch to login if they click
     if (creatingAcct) {
@@ -73,6 +69,22 @@ const Account: React.FC<Props> = (props) => {
       
       await loginUser(userEmail, userPass, name, userSignIn);
     }
+  }
+
+  const handleLogout = () => {
+    setLoading(true);
+    signOutUser(userSignIn);
+    history.push('/');
+
+    console.log('user sign out');
+  }
+
+  const userSignIn = (user: UserData) => {
+    setLoading(false);
+    setForm(false);
+    
+    console.log('signed in change');
+    props.handleLogin(user);
   }
 
   return (
@@ -111,40 +123,51 @@ const Account: React.FC<Props> = (props) => {
               'text-center border-2 border-gray-900'
           }>
             {!loading ? (
-              <div className='flex flex-col space-y-2'>
-                <h3 className='text-xl w-60'>
-                  {creatingAcct ? 'Create Account' : 'Login'
-                  }
-                </h3>
+              <>
+                {!props.user.id ? (
+                <div className='flex flex-col space-y-2'>
+                  <h3 className='text-xl w-60'>
+                    {creatingAcct ? 'Create Account' : 'Login'
+                    }
+                  </h3>
 
-                <input className='text-black' placeholder='Email'
-                ref={email}></input>
+                  <input className='text-black' placeholder='Email'
+                  ref={email}></input>
 
-                <input className='text-black' placeholder='Username'
-                ref={username}></input>
+                  <input className='text-black' placeholder='Username'
+                  ref={username}></input>
 
-                <input className='text-black' placeholder='Password'
-                ref={password}></input>
+                  <input className='text-black' placeholder='Password'
+                  ref={password}></input>
 
-                {creatingAcct ? (
-                  <textarea className='text-black'
-                  placeholder='Description'
-                  ref={bio}></textarea>
-                ) : (
-                  <span></span>
-                )}
-                
-                <br></br>
-                
-                <div className='space-x-6'>
-                  <button className='bg-gray-900 border-gray-900 rounded px-2 py-1' 
-                  onClick={() => createAccount()}>Create</button>
-                  <span>|</span>
-                  <button className={'border-2 border-gray-900 rounded px-2 py-1 ' + 
-                  'hover:bg-gray-900 transition ease-in-out'}
-                  onClick={() => handleLogin()}>Login</button>
+                  {creatingAcct ? (
+                    <textarea className='text-black'
+                    placeholder='Description'
+                    ref={bio}></textarea>
+                  ) : (
+                    <span></span>
+                  )}
+                  
+                  <br></br>
+                  
+                  <div className='space-x-6'>
+                    <button className='bg-gray-900 border-gray-900 rounded px-2 py-1' 
+                    onClick={() => createAccount()}>Create</button>
+                    <span>|</span>
+                    <button className={'border-2 border-gray-900 rounded px-2 py-1 ' + 
+                    'hover:bg-gray-900 transition ease-in-out'}
+                    onClick={() => handleLogin()}>Login</button>
+                  </div>
                 </div>
-              </div>
+                ) : (
+                  <div>
+                    <button className='bg-gray-900 border-gray-900 rounded px-2 py-1 my-5'
+                    onClick={() => handleLogout()}>
+                      Sign out
+                    </button>
+                  </div>
+                )}
+              </>
             ) : (
               <div className='w-full'>
                 <div className='w-16 h-16 mx-auto my-8 rounded-full border-gray-900 animate-spin'

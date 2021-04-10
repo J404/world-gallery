@@ -23,6 +23,11 @@ export const checkSignedIn = (callback: (user: UserData) => void) => {
       console.log(user);
       const name = localStorage.getItem('name');
       const password = localStorage.getItem('password');
+      
+      if (!name || !password) {
+        console.log('no credentials stored');
+        return;
+      }
 
       try {
         const response = await fetch(`${apiRoute}/search?name=${name}`);
@@ -153,5 +158,17 @@ export const loginUser = async (
   })
   .catch(error => {
     console.error(`Error ${error.code} | (4): ${error.message}`);
+  });
+}
+
+export const signOutUser = (callback: (user: UserData) => void) => {
+  firebase.auth().signOut().then(() => {
+    console.log('signed out!');
+    clearCredentials();
+    callback({} as unknown as UserData);
+  })
+  .catch(error => {
+    alert('Error (12): Try again later');
+    console.error(error);
   });
 }
