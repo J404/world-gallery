@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 
 import * as L from 'leaflet';
 
+import { apiRoute, UserData } from './auth';
+
 interface Props {
   startCoords: [number, number];
 }
@@ -18,6 +20,26 @@ const DiscoverMap: React.FC<Props> = props => {
     <a href="${link}">Visit</a>
     `);
   };
+
+  const setAllMarkers = async () => {
+    const response = await fetch(`${apiRoute}/discoverALl`);
+    const result = await response.json();
+
+    if (result.error) {
+      alert('Error (10): Try again later');
+      return;
+    }
+
+    const users: UserData[] = result.data;
+
+    for (let user of users) {
+      const coords: [number, number] = [user.latitude, user.longitude];
+      const name = user.name;
+      const link = `/galleries?name=${name}`;
+
+      addMarker(coords, name, link);
+    }
+  }
 
   useEffect(() => {
     // Only recreate if the component isn't mounted - not on reload
@@ -43,20 +65,21 @@ const DiscoverMap: React.FC<Props> = props => {
         }
       ).addTo(discovermap.current);
 
-      // Go to broswer's location if they allow
-      if (navigator.geolocation) {
+      // Go to broswer's location if they allow AND if they didn't give us coords in their account
+      if (navigator.geolocation && !props.startCoords[0]) {
         navigator.geolocation.getCurrentPosition((pos) => {
           const lat = pos.coords.latitude;
           const lon = pos.coords.longitude;
           const coords: [number, number] = [lat, lon];
 
           discovermap.current.panTo(coords);
-
-          addMarker(coords, 'Example', 'http://localhost:3000/galleries');
         });
       }
+      
+      // Search for all users and add markers for them
+      setAllMarkers();
     }
-  });
+  }, []);
 
   return (
     <div className='DiscoverMap w-11/12 mx-auto border-4 border-blue-700 rounded-md'>
