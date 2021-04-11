@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutPage: React.FC = () => {
   return (
-    <div className='AboutPage mx-4 space-y-4'>
+    <div className='AboutPage mx-12 space-y-4'>
       <div className='w-fit-content'>
         <h2 className='text-4xl'>Our Mission</h2>
         <div className='border-2 border-red-600'></div>
