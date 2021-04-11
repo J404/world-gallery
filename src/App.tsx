@@ -7,6 +7,7 @@ import { UserData, checkSignedIn } from './auth';
 import Header from './Header';
 import Discover from './Discover';
 import Gallery from './Gallery';
+import AboutPage from './About';
 
 function App() {
   const [user, setUser] = useState(({} as unknown) as UserData);
@@ -35,7 +36,9 @@ function App() {
             <Gallery user={user}></Gallery>
           </Route>
 
-          <Route path='/'></Route>
+          <Route path='/'>
+            <AboutPage></AboutPage>
+          </Route>
         </Switch>
       </Router>
     </div>
