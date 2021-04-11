@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { Link, useHistory } from 'react-router-dom';
 
@@ -73,8 +73,13 @@ const Account: React.FC<Props> = props => {
 
   const handleLogout = () => {
     setLoading(true);
+    setCreating(true);
     signOutUser(userSignIn);
+    
     history.push('/');
+
+    setLoading(false);
+    setForm(false);
 
     console.log('user sign out');
   }
@@ -108,8 +113,7 @@ const Account: React.FC<Props> = props => {
       </div>
       {showForm ? (
         <div className='z-20 focus:outline-none'
-        tabIndex={0}
-        onBlur={() => setForm(false)}>
+        tabIndex={0}>
           <div
             id='triangle'
             className='w-0 h-0 mr-10 ml-auto'
@@ -139,7 +143,7 @@ const Account: React.FC<Props> = props => {
                   <input className='text-black' placeholder='Username'
                   ref={username}></input>
 
-                  <input className='text-black' placeholder='Password'
+                  <input className='text-black' placeholder='Password' type='password'
                   ref={password}></input>
 
                   {creatingAcct ? (
