@@ -6,7 +6,8 @@ import 'firebase/auth';
 // Initialize firebase w/ config
 initFirebase();
 
-export const apiRoute = 'https://us-central1-worldgallery-22545.cloudfunctions.net/api';
+export const apiRoute =
+  'https://us-central1-worldgallery-22545.cloudfunctions.net/api';
 
 export interface UserData {
   name: string;
@@ -18,12 +19,12 @@ export interface UserData {
 
 // Check if a user is already signed in
 export const checkSignedIn = (callback: (user: UserData) => void) => {
-  firebase.auth().onAuthStateChanged(async user => {
+  firebase.auth().onAuthStateChanged(async (user) => {
     if (user) {
       console.log(user);
       const name = localStorage.getItem('name');
       const password = localStorage.getItem('password');
-      
+
       if (!name || !password) {
         console.log('no credentials stored');
         return;
@@ -38,14 +39,13 @@ export const checkSignedIn = (callback: (user: UserData) => void) => {
           return;
         }
 
-      callback({
-        name: name as unknown as string,
-        uid: user.uid,
-        description: result.data[0].description,
-        latitude: result.data[0].latitude,
-        longitude: result.data[0].longitude,
-      });
-      
+        callback({
+          name: (name as unknown) as string,
+          uid: user.uid,
+          description: result.data[0].description,
+          latitude: result.data[0].latitude,
+          longitude: result.data[0].longitude,
+        });
       } catch (error) {
         console.error(error);
       }
@@ -54,17 +54,17 @@ export const checkSignedIn = (callback: (user: UserData) => void) => {
       clearCredentials();
     }
   });
-  }
+};
 
 const storeCredentials = (name: string, password: string) => {
   localStorage.setItem('name', name);
   localStorage.setItem('password', password);
-}
+};
 
 const clearCredentials = () => {
   localStorage.setItem('name', '');
   localStorage.setItem('password', '');
-}
+};
 
 // Create a new user account
 export const createUser = async (
@@ -89,33 +89,38 @@ export const createUser = async (
         longitude: location.lon,
       };
 
-      // Send additional data to server
-      const response = await fetch(`${apiRoute}/updateUser`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        redirect: 'follow',
-        body: JSON.stringify(data),
-      });
-      const result = await response.json();
-      console.log(result);
+      setTimeout(async () => {
+        // Send additional data to server
+        const response = await fetch(`${apiRoute}/updateUser`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          redirect: 'follow',
+          body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        console.log(result);
 
-      if (result.error) {
-        alert('Error (3): try again later.');
-        return;
-      }
+        if (result.error) {
+          alert('Error (3): try again later.');
+          return;
+        }
 
-      doneCallback({
-        name,
-        uid: (user as firebase.User).uid,
-        description,
-        latitude: location.lat,
-        longitude: location.lon,
-      }, false);
+        doneCallback(
+          {
+            name,
+            uid: (user as firebase.User).uid,
+            description,
+            latitude: location.lat,
+            longitude: location.lon,
+          },
+          false
+        );
 
-      storeCredentials(name, password);
+        storeCredentials(name, password);
+      }, 1000);
     })
     .catch((error) => {
-      doneCallback({} as unknown as UserData, true);
+      doneCallback(({} as unknown) as UserData, true);
       console.error(`Error ${error.code} | (5): ${error.message}`);
     });
 };
@@ -127,47 +132,55 @@ export const loginUser = async (
   name: string,
   doneCallback: (user: UserData, error?: boolean) => void
 ) => {
-  firebase.auth().signInWithEmailAndPassword(email, password)
-  .then(async (userCredential) => {
-    const user = userCredential.user;
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(async (userCredential) => {
+      const user = userCredential.user;
 
-    console.log(user);
-    
-    const response = await fetch(`${apiRoute}/search?name=${name}`);
-    const result = await response.json();
-    console.log(result);
+      console.log(user);
 
-    if (result.error) {
-      alert('Error (6): Try again later');
-      return;
-    }
+      const response = await fetch(`${apiRoute}/search?name=${name}`);
+      const result = await response.json();
+      console.log(result);
 
-    doneCallback({
-      name,
-      uid: (user as firebase.User).uid,
-      description: result.data[0].description,
-      latitude: result.data[0].latitude,
-      longitude: result.data[0].longitude,
-    }, false);
+      if (result.error) {
+        alert('Error (6): Try again later');
+        return;
+      }
 
-    console.log('signed in!');
+      doneCallback(
+        {
+          name,
+          uid: (user as firebase.User).uid,
+          description: result.data[0].description,
+          latitude: result.data[0].latitude,
+          longitude: result.data[0].longitude,
+        },
+        false
+      );
 
-    storeCredentials(name, password);
-  })
-  .catch(error => {
-    doneCallback({} as unknown as UserData, true);
-    console.error(`Error ${error.code} | (4): ${error.message}`);
-  });
-}
+      console.log('signed in!');
+
+      storeCredentials(name, password);
+    })
+    .catch((error) => {
+      doneCallback(({} as unknown) as UserData, true);
+      console.error(`Error ${error.code} | (4): ${error.message}`);
+    });
+};
 
 export const signOutUser = (callback: (user: UserData) => void) => {
-  firebase.auth().signOut().then(() => {
-    console.log('signed out!');
-    clearCredentials();
-    callback({} as unknown as UserData);
-  })
-  .catch(error => {
-    alert('Error (12): Try again later');
-    console.error(error);
-  });
-}
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      console.log('signed out!');
+      clearCredentials();
+      callback(({} as unknown) as UserData);
+    })
+    .catch((error) => {
+      alert('Error (12): Try again later');
+      console.error(error);
+    });
+};
