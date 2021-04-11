@@ -39,8 +39,9 @@ const ArtPiece: React.FC<Props> = props => {
 
     if (likes !== props.likes) {
       incrementLikes();
+      console.log('changing likes');
     }
-  }, [location]);
+  }, [likes]);
 
   const handleLike = async () => {
     if (!liked) {
