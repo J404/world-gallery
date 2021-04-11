@@ -138,6 +138,11 @@ const Gallery: React.FC<Props> = (props) => {
                   key={i}></ArtPiece>
                 )
               }
+              {pieces.length === 0 ?
+                <p className='text-2xl'>Nothing to see here... check back later!</p>
+                :
+                <></>
+              }
             </div>
           </div>
           {(uploading && props.user.uid && props.user.uid === artist.uid) ? (
