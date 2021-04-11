@@ -27,7 +27,7 @@ const AboutPage: React.FC = () => {
           These artists' works can find their way to anyone's eyes easier than ever before.
         </p>
       </div>
-      <div className='mt-40 w-fit-content'>
+      <div className='mt-40 w-fit-content group'>
         <h2 className='text-5xl'>
           Join Us, and Change the World
         </h2>
