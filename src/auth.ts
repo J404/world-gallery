@@ -73,7 +73,7 @@ export const createUser = async (
   name: string,
   description: string,
   location: { lat: number; lon: number },
-  doneCallback: (user: UserData) => void
+  doneCallback: (user: UserData, error?: boolean) => void
 ) => {
   firebase
     .auth()
@@ -90,15 +90,12 @@ export const createUser = async (
       };
 
       // Send additional data to server
-      const response = await fetch(
-        `${apiRoute}/updateUser`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          redirect: 'follow',
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${apiRoute}/updateUser`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        redirect: 'follow',
+        body: JSON.stringify(data),
+      });
       const result = await response.json();
       console.log(result);
 
@@ -106,18 +103,19 @@ export const createUser = async (
         alert('Error (3): try again later.');
         return;
       }
-      
-      doneCallback({ 
-        name, 
+
+      doneCallback({
+        name,
         uid: (user as firebase.User).uid,
         description,
         latitude: location.lat,
         longitude: location.lon,
-       });
+      }, false);
 
-       storeCredentials(name, password);
+      storeCredentials(name, password);
     })
     .catch((error) => {
+      doneCallback({} as unknown as UserData, true);
       console.error(`Error ${error.code} | (5): ${error.message}`);
     });
 };
@@ -127,7 +125,7 @@ export const loginUser = async (
   email: string,
   password: string,
   name: string,
-  doneCallback: (user: UserData) => void
+  doneCallback: (user: UserData, error?: boolean) => void
 ) => {
   firebase.auth().signInWithEmailAndPassword(email, password)
   .then(async (userCredential) => {
@@ -150,13 +148,14 @@ export const loginUser = async (
       description: result.data[0].description,
       latitude: result.data[0].latitude,
       longitude: result.data[0].longitude,
-    });
+    }, false);
 
     console.log('signed in!');
 
     storeCredentials(name, password);
   })
   .catch(error => {
+    doneCallback({} as unknown as UserData, true);
     console.error(`Error ${error.code} | (4): ${error.message}`);
   });
 }

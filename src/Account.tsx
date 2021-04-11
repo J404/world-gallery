@@ -75,7 +75,7 @@ const Account: React.FC<Props> = props => {
     setLoading(true);
     setCreating(true);
     signOutUser(userSignIn);
-    
+
     history.push('/');
 
     setLoading(false);
@@ -84,8 +84,14 @@ const Account: React.FC<Props> = props => {
     console.log('user sign out');
   }
 
-  const userSignIn = (user: UserData) => {
+  const userSignIn = (user: UserData, error?: boolean) => {
     setLoading(false);
+
+    if (error) {
+      alert('Invalid or badly formatted email/username/password. Try again.');
+      return;
+    }
+
     setForm(false);
     
     console.log('signed in change');
