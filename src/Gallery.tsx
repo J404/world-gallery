@@ -17,8 +17,10 @@ interface Props {
 interface ArtData {
   description: string;
   fileName: string;
+  id: string;
   imageURL: string;
   likes: number;
+  liked?: boolean;
   title: string;
 }
 
@@ -43,7 +45,12 @@ const Gallery: React.FC<Props> = (props) => {
       return;
     }
 
-    const pieces = result.data.pieces;
+    const pieces = result.data;
+
+    for (let i = 0; i < pieces.length; i++) {
+      pieces[i] = { ...pieces[i], liked: false };
+    }
+
     setPieces(pieces);
   }
 
@@ -127,6 +134,7 @@ const Gallery: React.FC<Props> = (props) => {
                   description={piece.description}
                   likes={piece.likes}
                   title={piece.title}
+                  id={piece.id}
                   key={i}></ArtPiece>
                 )
               }
