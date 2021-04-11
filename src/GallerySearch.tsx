@@ -20,7 +20,7 @@ const GallerySearch: React.FC = () => {
     const result = await response.json();
 
     if (result.error) {
-      alert('Error (11): Try again later');
+      alert('No users found');
       setLoading(false);
       return;
     }
@@ -45,7 +45,9 @@ const GallerySearch: React.FC = () => {
         onClick={() => searchUsers()}>
           Search
         </button>
-
+        <p className='mt-2 text-gray-500 text-sm'>
+          (enter the exact username of the artist)
+        </p>
         {loading ? (
           <div className='w-16 h-16 mx-auto my-8 rounded-full animate-spin'
           style={{

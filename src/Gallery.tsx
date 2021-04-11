@@ -146,7 +146,10 @@ const Gallery: React.FC<Props> = (props) => {
               onClick={() => setUploading(false)}>
               </div>
               <UploadPiece uid={props.user.uid}
-              closeDialogue={() => setUploading(false)}></UploadPiece>
+              closeDialogue={() => {
+                setUploading(false);
+                loadPieces(artist);
+              }}></UploadPiece>
             </div>
           ) : (
             <></>

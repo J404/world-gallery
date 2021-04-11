@@ -24,6 +24,11 @@ const UploadPiece: React.FC<Props> = (props) => {
     const artDescrip = ((descrip.current as unknown) as HTMLInputElement).value;
     const files = ((fileInput.current as unknown) as HTMLInputElement).files;
 
+    if (!artTitle || !artDescrip || !files || files.length === 0) {
+      alert('Fill out all form fields.');
+      return;
+    }
+
     if (((files as unknown) as FileList).length !== 1) {
       alert('Submit one image file');
       return;
@@ -95,6 +100,7 @@ const UploadPiece: React.FC<Props> = (props) => {
       <br></br>
       <p>Choose image file:</p>
       <input className='text-white' type='file'
+      accept='image/*'
       ref={fileInput}></input>
       <button
         className='w-1/6 my-4 border-yellow-300 hover:bg-yellow-300 font-semibold'
