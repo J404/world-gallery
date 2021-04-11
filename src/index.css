@@ -11269,6 +11269,10 @@ button {
   font-family: Source Sans Pro, sans-serif;
 }
 
+.font-main-header {
+  font-family: Quicksand, sans-serif;
+}
+
 .font-thin {
   font-weight: 100;
 }
@@ -39890,6 +39894,10 @@ h2, button {
     font-family: Source Sans Pro, sans-serif;
   }
 
+  .sm\:font-main-header {
+    font-family: Quicksand, sans-serif;
+  }
+
   .sm\:font-thin {
     font-weight: 100;
   }
@@ -68443,6 +68451,10 @@ h2, button {
 
   .md\:font-headers {
     font-family: Source Sans Pro, sans-serif;
+  }
+
+  .md\:font-main-header {
+    font-family: Quicksand, sans-serif;
   }
 
   .md\:font-thin {
@@ -97000,6 +97012,10 @@ h2, button {
     font-family: Source Sans Pro, sans-serif;
   }
 
+  .lg\:font-main-header {
+    font-family: Quicksand, sans-serif;
+  }
+
   .lg\:font-thin {
     font-weight: 100;
   }
@@ -125555,6 +125571,10 @@ h2, button {
     font-family: Source Sans Pro, sans-serif;
   }
 
+  .xl\:font-main-header {
+    font-family: Quicksand, sans-serif;
+  }
+
   .xl\:font-thin {
     font-weight: 100;
   }
@@ -154108,6 +154128,10 @@ h2, button {
 
   .\32xl\:font-headers {
     font-family: Source Sans Pro, sans-serif;
+  }
+
+  .\32xl\:font-main-header {
+    font-family: Quicksand, sans-serif;
   }
 
   .\32xl\:font-thin {
